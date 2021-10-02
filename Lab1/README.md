@@ -287,9 +287,9 @@ if __name__ == '__main__':
 ## Results
 
 Here is ilustrated the results for differet type of inputs:
-	* Apple Mac Air
+* Apple Mac Air
 ```bash
-$ # python main.py
+$ python main.py
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook?m
 
 inserting RAM ...
@@ -304,4 +304,43 @@ Graphics Card: Apple M1 8-core chip
 
 Enjoy your monster!
 ```
+	
+* Desktop
 
+```bash
+$ python main.py
+What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook?d
+
+What is the size of the SSD (in Gb)?  512
+What is the ram memory (in Gb)? 12
+What is the GPU in your desktop? GeForce RTX 2080 Ti
+
+inserting RAM ...
+putting SSD ...
+preparing last details ...
+your personalized Desktop is ready!
+
+Memory: 12Gb
+SSD: 512Gb
+Graphics Card: GeForce RTX 2080 Ti
+Enjoy your monster!
+```
+
+* Notebook
+
+```bash
+$ python main.py
+What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook?n
+
+Do you need an [o]ffice or [g]aming notebook? g
+
+inserting RAM ...
+putting SSD ...
+preparing last details ...
+your personalized Notebook is ready!
+
+Memory: 16Gb
+SSD: 1025Gb
+Graphics Card: NVidia GeForce RTX 3080 Ti
+Enjoy your monster!
+```
