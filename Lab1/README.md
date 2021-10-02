@@ -284,20 +284,24 @@ if __name__ == '__main__':
 	print('Enjoy your monster!')
 ```
 
-#### Run
+## Results
 
+Here is ilustrated the results for differet type of inputs:
+	* Apple Mac Air
 ```bash
-$ # clone repository
-$ py -m venv env # create env
-$ env\Scripts\activate # activate env
-$ pip install -r requirements.txt # install dependecies
-$ py main.py # start the server
+$ # python main.py
+What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook?m
+
+inserting RAM ...
+putting SSD ...
+preparing last details ...
+your Mac Air is ready!
+
+Model: 3.2GHz Mac Air
+Memory: 16Gb
+SSD: 256Gb
+Graphics Card: Apple M1 8-core chip
+
+Enjoy your monster!
 ```
 
-#### with docker
-
-```bash
-$ docker build --tag kitchen . # create kitchen image
-$ docker network create nt # create docker network 
-$ docker run -d --net nt --name kitchen kitchen # run docker container on created network
-```
