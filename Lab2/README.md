@@ -59,7 +59,7 @@ def mac_main():
 	print(mac_air, end = '\n\n')
 ```
 
-Anoter option is buying a custop Desktop. In this case, is used the Builder pattern. The director gives orders to the manufacturer (builder) about the ideal computer specifications that were given by the customer. Code-wise, this looks like the following (`builder.py`):
+__2. Anoter option is buying a custop Desktop. In this case, is used the Builder pattern. The director gives orders to the manufacturer (builder) about the ideal computer specifications that were given by the customer. Code-wise, this looks like the following (`builder.py`):__
 ```python
 import time
 
@@ -129,7 +129,7 @@ def desktop_main():
 The basic changes are the intoduction of a builder `DesktopBuilder`, a director `HardwareEngineer`, and the step-by-step construction of a desktop, which now supportts different configurations (cpu, gpu and ssd)
 
 
-To Abstract Method was used in the creation of notebook. There are 2 types of notebooks office and gaming one. The main specifications for notebook remains the same: cpu, ssd and gpu. For every type of notebook the specifications classes are different:
+__3. To Abstract Method was used in the creation of notebook. There are 2 types of notebooks office and gaming one. The main specifications for notebook remains the same: cpu, ssd and gpu. For every type of notebook the specifications classes are different (`abstract_factory`):__
 ```python
 class Gaming_ssd:
 	def __init__(self):
@@ -261,6 +261,151 @@ def main_notebook():
 	environment = NotebookEnvironment(notebook)
 	print(environment)
 ```
+
+__4. Before buying the piece of device the customer wants, he/she have the oportunity to check if its working. This can be done via the Adapter design pattern. Our application has a `Computer` class that shows basic information about a computer. All the classes of this example, including the `Computer` class are very primitive, because I want to focus on the Adapter pattern and not on how to make a class as complete as possible (`adapter_pattern.py`):
+```python
+class Computer:
+	def __init__(self, name):
+		self.name = name
+
+	def __str__(self):
+		time.sleep(1)
+		return 'The {}'.format(self.name)
+
+	def execute(self):
+		time.sleep(1)
+		return 'executes a program'
+```
+In this case, the `execute()` method is the main action that the computer can perform. This method is called by the client code. I decided to enrich the app with more functionality, and luckily, I find two interesting classes implemented in two different libraries that are unrelated with out application: `Electronic_device` and `Human`. In the `Electronic_device` clas, the main action is performed by the `play()` method. In the `Human` class, it is performed by the `speak()` method. To indicate that the two classes are external, I placed them in a separate module, as shown:
+```python
+class Electronic_device:
+	def __init__(self, name):
+		self.name = name
+
+	def __str__(self):
+		time.sleep(1)
+		return 'The {} '.format(self.name)
+
+	def play(self):
+		time.sleep(1)
+		return 'is playing an electronic song!'
+
+class Human:
+	def __init__(self, name):
+		self.name = name
+
+	def __str__(self):
+		time.sleep(1)
+		return '{} the customer'.format(self.name)
+
+	def speak(self):
+		time.sleep(1)
+		return ': Wow it works!'
+```
+The client only knows how to call the `execute()` method, and it has no idea about the `play()` or `speak()`. Adapters to the rescue! I created a generic `Adapter` class that allows to adapt a number of objects with different interfaces, into one unified interface. The `obj()` argument of the `__init__()` method is the object that I want to adapt, and `adapted_methods` is a dictionary containing key/value pairs of method the client calls/method that should be called.
+```python
+class Adapter:
+	def __init__(self, obj, adapted_methods):
+		self.obj = obj
+		self.__dict__.update(adapted_methods)
+
+	def __str__(self):
+		return str(self.obj)
+```
+An `objects` list holds all the objects. The compatible objects that belong to the `Computer` class need no adaptation. I added them directly to the list. The incopatible objects are not added directly. They are adapted using the `Adapter` class. The result is that the client code can continue using the known `execute()` method on all objects without the need to be aware of any interface differences between the used classes.
+```python
+def check_electronics_main(type_electronics, customer):
+	objects = [Computer(type_electronics)]
+	device = Electronic_device(type_electronics)
+	objects.append(Adapter(device, dict(execute=device.play)))
+	human = Human(customer)
+	objects.append(Adapter(human, dict(execute = human.speak)))
+
+	for i in objects:
+		print('{} {}'.format(str(i), i.execute()))
+```
+
+__6. After the customer selected the type of device and checked if it works and applied some covers, he/she should pay for it. In order to simulate the paying process the amount of money which must be payed is a random number, like the discount percents. This can be done via a special service developed. This service represents a Proxy pattern. The service provides 3 options:__
+	* Checking if customer has discount: This operation does not require special privileges
+	* Adding a new user: This operation requires the client to provide a special secert message
+	* Paying for the device: This operation does not require special privileges
+
+The `SensitiveInfo` class contains the information that need to be protected. The `users` variable is the list of existing users. The `read()` method prints the list of the users. The `add()` method adds a new user to the list. Let's consider the following code:
+```python
+class SensitiveInfo:
+	def __init__(self):
+		self.users = ['Mihai Moglan']
+
+	def read(self):
+		print('There are {} users: {}'.format(len(self.users), ', '.join(self.users)))
+
+	def find(self, user):
+		return user in self.users
+
+	def add(self, user):
+		self.users.append(user)
+		print('Added user {}'. format(user))
+```
+The `Info` class is a protection proxy of `SensitiveInfo`. The `secret` variable is the message required to be known/provided by the client code to add a new user. Note that this is just ane exmple. In reality, this should never happen.
+
+The `read()` method is a wrapper to `SensitiveInfo.read()`. The `add()` method ensures that a new user can be added only if the client code knows the secret message. Let's consider the following code:
+```python
+class Info:
+	'''protection proxy to SensitiveInfo'''
+
+	def __init__(self):
+		self.protected = SensitiveInfo()
+		self.secret = 'TMPS==design_patterns'
+
+	def read(self):
+		self.protected.read()
+
+	def find(self, user):
+		if self.protected.find(user):
+			print('{} has discount!'.format(user))
+			return True
+		else:
+			print('{} does not have discount!'.format(user))
+			return False
+
+	def add(self, user):
+		sec = input('What is the secret word? ')
+		if sec == self.secret:
+			self.protected.add(user)
+			return True
+		else:
+			print("That's wrong!")
+			return False
+```
+The `discount_main()` function shows how the Proxy pattern can be used by the client code. The client code creates an instance of the `Info` class and uses the displayed menu to check if person has discount, add a new user, or just pay for the device. Let's consider the following code:
+```python
+def discount_main(price, discount, customer):
+	has_discount = False
+	info = Info()
+	while True:
+		print('1. Check person has discount |==| 2. Add a new person |==| 3. Pay')
+		key = input('Choose option: ')
+
+		if key == '2':
+			#name = input("What's the name of the fresh person? ")
+			has_discount = info.add(customer)
+		elif key == '1':
+			#name = input("What's the name of the fresh person? ")
+			has_discount = info.find(customer)
+		elif key == '3':
+			break
+		else:
+			print('Unknown option: {}'.format(key))
+
+	if has_discount:
+		print(customer, ', good news, you have', str(discount), "% discount!")
+		print(customer, ', you have to pay', str(price * (1 - discount/100)), '!')
+	else:
+		print(customer, ', unfortunately, you do not have a discount!')
+		print(customer, ', you have to pay', str(price), '!')
+```
+
+ 
 
 All 3 creational and 3 structural patterns are called by `main.py` code, which is responsible also for reading the input from the customer.
 ```python
