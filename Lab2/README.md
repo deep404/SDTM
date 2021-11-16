@@ -520,7 +520,7 @@ Here is ilustrated the results for differet type of inputs:
 * Apple Mac Air
 ```bash
 $ python main.py
-What's your full name? (First_Name Last_Name) Alex Clefos
+Whats your full name? (First_Name Last_Name) Alex Clefos
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? m
 
 
@@ -558,7 +558,7 @@ Enjoy your monster!
 
 ```bash
 $ python main.py
-What's your full name? (First_Name Last_Name) Dima Trubca
+Whats your full name? (First_Name Last_Name) Dima Trubca
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? d
 
 
@@ -596,7 +596,7 @@ Enjoy your monster!
 
 ```bash
 $ python main.py
-What's your full name? (First_Name Last_Name) Mihai Moglan
+Whats your full name? (First_Name Last_Name) Mihai Moglan
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? n
 
 
