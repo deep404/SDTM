@@ -262,7 +262,7 @@ def main_notebook():
 	print(environment)
 ```
 
-__4. Before buying the piece of device the customer wants, he/she have the oportunity to check if its working. This can be done via the Adapter design pattern. Our application has a `Computer` class that shows basic information about a computer. All the classes of this example, including the `Computer` class are very primitive, because I want to focus on the Adapter pattern and not on how to make a class as complete as possible (`adapter_pattern.py`):
+__4. Before buying the piece of device the customer wants, he/she have the oportunity to check if its working. This can be done via the Adapter design pattern. Our application has a `Computer` class that shows basic information about a computer. All the classes of this example, including the `Computer` class are very primitive, because I want to focus on the Adapter pattern and not on how to make a class as complete as possible (`adapter_pattern.py`):__
 ```python
 class Computer:
 	def __init__(self, name):
@@ -324,6 +324,44 @@ def check_electronics_main(type_electronics, customer):
 	for i in objects:
 		print('{} {}'.format(str(i), i.execute()))
 ```
+
+__5. After checking the functionality of the device, the user has the oportunity to put some covers on his/her, for example: stickers or plastic cover. This is done via the Decorator pattern (`decorator.py`). Initially, there is only the `Device`, but there can be applied covers `stickers` and `plastic`. So, there is created separate wrapper classes for each function like `Stickers` and `PlasticCover`. First, it is called `Stickers` class, then the `PlasticCover` class.
+```python
+class PlasticCover(Device):
+
+	def __init__(self, wrapped):
+		self._wrapped = wrapped
+
+	def render(self):
+		return "{} in plastic cover".format(self._wrapped.render())
+
+class Stickers(Device):
+
+	def __init__(self, wrapped):
+		self._wrapped = wrapped
+
+	def render(self):
+		return "{} with stickers".format(self._wrapped.render())
+```
+
+The `apply_cover_main()` function shows how the Decorator pattern can be used by the client code. The client code creates an instance of the `Device` class and uses it to apply different covers. Let's consider the following code:
+```python
+def apply_cover_main(device, cover_type):
+
+	device_zero = Device(device)
+	if cover_type == 'p':
+		device_after = PlasticCover(device_zero)
+	elif cover_type == 's':
+		device_after = Stickers(device_zero)
+	elif cover_type == 'b':
+		device_after = PlasticCover(Stickers(device_zero))
+
+	#return device_after.render()
+	#print("before :", device_zero.render())
+	time.sleep(1)
+	print(device_after.render())
+```
+
 
 __6. After the customer selected the type of device and checked if it works and applied some covers, he/she should pay for it. In order to simulate the paying process the amount of money which must be payed is a random number, like the discount percents. This can be done via a special service developed. This service represents a Proxy pattern. The service provides 3 options:__
 	* Checking if customer has discount: This operation does not require special privileges
@@ -482,10 +520,13 @@ Here is ilustrated the results for differet type of inputs:
 * Apple Mac Air
 ```bash
 $ python main.py
-What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook?m
+What's your full name? (First_Name Last_Name) Alex Clefos
+What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? m
+
 
 inserting RAM ...
 putting SSD ...
+installing the GPU ...
 preparing last details ...
 your Mac Air is ready!
 
@@ -494,6 +535,22 @@ Memory: 16Gb
 SSD: 256Gb
 Graphics Card: Apple M1 8-core chip
 
+Do you want to check your mac? [y]es, [n]o : y
+
+The Mac executes a program
+The Mac  is playing an electronic song!
+Alex Clefos the customer : Wow it works!
+
+Do you want to apply a [p]lastic, [s]tickers, [b]oth or [n]one cover on your mac? n
+
+1. Check person has discount |==| 2. Add a new person |==| 3. Pay
+Choose option: 2
+What is the secret word? TMPS==design_patterns
+Added user Alex Clefos
+1. Check person has discount |==| 2. Add a new person |==| 3. Pay
+Choose option: 3
+Alex Clefos , good news, you have 12 % discount!
+Alex Clefos , you have to pay 1444.08 !
 Enjoy your monster!
 ```
 	
@@ -501,20 +558,37 @@ Enjoy your monster!
 
 ```bash
 $ python main.py
-What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook?d
+What's your full name? (First_Name Last_Name) Dima Trubca
+What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? d
+
 
 What is the size of the SSD (in Gb)?  512
 What is the ram memory (in Gb)? 12
 What is the GPU in your desktop? GeForce RTX 2080 Ti
 
+
 inserting RAM ...
 putting SSD ...
+installing the GPU ...
 preparing last details ...
 your personalized Desktop is ready!
 
 Memory: 12Gb
 SSD: 512Gb
 Graphics Card: GeForce RTX 2080 Ti
+Do you want to check your desktop? [y]es, [n]o : n
+
+Do you want to apply a [p]lastic, [s]tickers, [b]oth or [n]one cover on your desktop? b
+
+Desktop with stickers in plastic cover
+
+1. Check person has discount |==| 2. Add a new person |==| 3. Pay
+Choose option: 1
+Dima Trubca does not have discount!
+1. Check person has discount |==| 2. Add a new person |==| 3. Pay
+Choose option: 3
+Dima Trubca , unfortunately, you do not have a discount!
+Dima Trubca , you have to pay 2128 !
 Enjoy your monster!
 ```
 
@@ -522,18 +596,39 @@ Enjoy your monster!
 
 ```bash
 $ python main.py
-What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook?n
+What's your full name? (First_Name Last_Name) Mihai Moglan
+What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? n
+
 
 Do you need an [o]ffice or [g]aming notebook? g
 
+
 inserting RAM ...
 putting SSD ...
+installing the GPU ...
 preparing last details ...
 your personalized Notebook is ready!
 
 Memory: 16Gb
-SSD: 1025Gb
+SSD: 1024Gb
 Graphics Card: NVidia GeForce RTX 3080 Ti
+Do you want to check your notebook? [y]es, [n]o : y
+
+The Notebook executes a program
+The Notebook  is playing an electronic song!
+Mihai Moglan the customer : Wow it works!
+
+Do you want to apply a [p]lastic, [s]tickers, [b]oth or [n]one cover on your notebook? s
+
+Notebook with stickers
+
+1. Check person has discount |==| 2. Add a new person |==| 3. Pay
+Choose option: 1
+Mihai Moglan has discount!
+1. Check person has discount |==| 2. Add a new person |==| 3. Pay
+Choose option: 3
+Mihai Moglan , good news, you have 20 % discount!
+Mihai Moglan , you have to pay 1329.6000000000001 !
 Enjoy your monster!
 ```
 
