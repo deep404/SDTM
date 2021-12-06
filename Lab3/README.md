@@ -552,7 +552,7 @@ if __name__ == '__main__':
 
 	while True:	
 		zakaz_text = ''
-		customer = input("What's your full name? (First_Name Last_Name) ")
+		customer = input("Whats your full name? (First_Name Last_Name) ")
 
 		zakaz_text += customer + '\n'
 
@@ -704,7 +704,7 @@ Here is ilustrated the results for differet type of inputs:
 ```bash
 $ python main.py
 [creating file 'C:\Users\hp\Desktop\UTM\Lab3_TMPS\report.txt']
-What's your full name? (First_Name Last_Name) Alex Clefos
+Whats your full name? (First_Name Last_Name) Alex Clefos
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? m
 
 
@@ -739,7 +739,7 @@ Alex Clefos , you have to pay 2989.36 !
 Enjoy your monster!
 Is working day over? [y/n] n
 
-What's your full name? (First_Name Last_Name) Dima Trubca
+Whats your full name? (First_Name Last_Name) Dima Trubca
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? d
 
 
@@ -774,7 +774,7 @@ Dima Trubca , you have to pay 2620 !
 Enjoy your monster!
 Is working day over? [y/n] n
 
-What's your full name? (First_Name Last_Name) Mihai Moglan
+Whats your full name? (First_Name Last_Name) Mihai Moglan
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? n
 
 
