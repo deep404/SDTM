@@ -699,9 +699,12 @@ if __name__ == '__main__':
 
 Here is ilustrated the results for differet type of inputs:
 * Apple Mac Air
+* Notebook
+* Desktop
 ```bash
 $ python main.py
-Whats your full name? (First_Name Last_Name) Alex Clefos
+[creating file 'C:\Users\hp\Desktop\UTM\Lab3_TMPS\report.txt']
+What's your full name? (First_Name Last_Name) Alex Clefos
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? m
 
 
@@ -730,16 +733,13 @@ What is the secret word? TMPS==design_patterns
 Added user Alex Clefos
 1. Check person has discount |==| 2. Add a new person |==| 3. Pay
 Choose option: 3
-Alex Clefos , good news, you have 12 % discount!
-Alex Clefos , you have to pay 1444.08 !
+Alex Clefos , good news, you have 14 % discount!
+Alex Clefos , you have to pay 2989.36 !
+[adding new information to file 'C:\Users\hp\Desktop\UTM\Lab3_TMPS\report.txt']
 Enjoy your monster!
-```
-	
-* Desktop
+Is working day over? [y/n] n
 
-```bash
-$ python main.py
-Whats your full name? (First_Name Last_Name) Dima Trubca
+What's your full name? (First_Name Last_Name) Dima Trubca
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? d
 
 
@@ -769,15 +769,12 @@ Dima Trubca does not have discount!
 1. Check person has discount |==| 2. Add a new person |==| 3. Pay
 Choose option: 3
 Dima Trubca , unfortunately, you do not have a discount!
-Dima Trubca , you have to pay 2128 !
+Dima Trubca , you have to pay 2620 !
+[adding new information to file 'C:\Users\hp\Desktop\UTM\Lab3_TMPS\report.txt']
 Enjoy your monster!
-```
+Is working day over? [y/n] n
 
-* Notebook
-
-```bash
-$ python main.py
-Whats your full name? (First_Name Last_Name) Mihai Moglan
+What's your full name? (First_Name Last_Name) Mihai Moglan
 What piece of electronics would you like, [m]ac, [d]esktop or [n]otebook? n
 
 
@@ -808,9 +805,41 @@ Choose option: 1
 Mihai Moglan has discount!
 1. Check person has discount |==| 2. Add a new person |==| 3. Pay
 Choose option: 3
-Mihai Moglan , good news, you have 20 % discount!
-Mihai Moglan , you have to pay 1329.6000000000001 !
+Mihai Moglan , good news, you have 18 % discount!
+Mihai Moglan , you have to pay 1665.42 !
+[adding new information to file 'C:\Users\hp\Desktop\UTM\Lab3_TMPS\report.txt']
 Enjoy your monster!
+Is working day over? [y/n] y
+
+Today report is:
+
+[reading file 'C:\Users\hp\Desktop\UTM\Lab3_TMPS\report.txt']
+Hello
+
+Alex Clefos
+Mac
+With check of mac
+Without covers
+
+Dima Trubca
+Desktop
+Without check of desktop
+With plastic cover and stickers
+
+Mihai Moglan
+Laptop
+With check of laptop
+With stickers
+
+
+Sending report on email...
+
+
+Deleting local report...
+
+deleting file 'C:\Users\hp\Desktop\UTM\Lab3_TMPS\report.txt'
+
+Done! Have a nice day!
 ```
 
 
