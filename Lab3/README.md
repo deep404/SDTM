@@ -510,6 +510,26 @@ The last utility gives the ability to add text to report `WriteFile`. It looke v
 		  out_file.write(data + '\n' + self.txt)
 ```
 
+The `command_main()` function makes use of the utilities. The `orig_name` parameter is the original name of file that is created, the `command` holds the action which should be done and the `text` variable is the information that have to be added to the report:
+```python
+def command_main(orig_name, command, text):
+
+	orig_name = 'C:\\Users\\hp\\Desktop\\UTM\\Lab3_TMPS\\' + orig_name 
+
+	if command == 'create':
+		cmd = CreateFile(orig_name)
+		cmd.execute()
+	if command == 'read':
+		cmd = ReadFile(orig_name)
+		cmd.execute()
+	if command == 'write':
+		cmd = WriteFile(orig_name, text)
+		cmd.execute()
+	if command == 'delete':
+		cmd = CreateFile(orig_name)
+		cmd.undo()
+```
+
 
 All 3 creational, 3 structural and 1 behavioral patterns are called by `main.py` code, which is responsible also for reading the input from the customer.
 ```python
