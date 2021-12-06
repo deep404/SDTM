@@ -1,4 +1,4 @@
-# Behavioral Design Patterns Laboratory Work No2
+# Behavioral Design Patterns Laboratory Work No3
 ## Author: Moglan Mihai, FAF - 192
 ------
 ## Introduction
